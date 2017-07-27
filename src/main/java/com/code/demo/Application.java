@@ -35,6 +35,8 @@ import com.code.service.StorageService;
 @ComponentScan(basePackages={"com.code"})
 
 @EnableConfigurationProperties(StorageProperties.class)
+@EntityScan(basePackages = {"com.code.model"})
+@EnableJpaRepositories(basePackages = "com.code.dao")
 
 
 
