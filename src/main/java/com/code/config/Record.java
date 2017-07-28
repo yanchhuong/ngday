@@ -1,4 +1,4 @@
-package com.heroku.demo;
+package com.code.config;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
