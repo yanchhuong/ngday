@@ -55,7 +55,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				
 			.and()
 				.exceptionHandling().accessDeniedPage("/403")
-			.and().csrf();
+			.and().csrf().disable();
 		// add iframe work
 		http.headers().frameOptions().disable();
 	}
