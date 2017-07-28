@@ -15,10 +15,13 @@
  */
 package com.code.demo;
 
+import org.apache.tomcat.jdbc.pool.DataSource;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceBuilder;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.orm.jpa.EntityScan;
 import org.springframework.context.annotation.Bean;
@@ -33,13 +36,9 @@ import com.code.service.StorageService;
 @Configuration
 @EnableAutoConfiguration
 @ComponentScan(basePackages={"com.code"})
-
 @EnableConfigurationProperties(StorageProperties.class)
 @EntityScan(basePackages = {"com.code.model"})
 @EnableJpaRepositories(basePackages = "com.code.dao")
-
-
-
 @SpringBootApplication
 public class Application {
 
@@ -53,5 +52,10 @@ public class Application {
             storageService.init();
 		};
 	}
+     @Bean
+	 @ConfigurationProperties("spring.datasource")
+	 public DataSource dataSource() {
+	     return (DataSource) DataSourceBuilder.create().build();
+	 }
 
 }
