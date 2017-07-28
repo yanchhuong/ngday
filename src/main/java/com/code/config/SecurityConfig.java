@@ -45,7 +45,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.anyRequest().permitAll()
 		   .and()
 		   		.formLogin()
-//		   		.loginPage("/login").successHandler(new SuccessLoginHandler())
+		   		.loginPage("/login")
+		 //  		.successHandler(new SuccessLoginHandler())
 		   		.usernameParameter("username")
 				.passwordParameter("password")
 				
