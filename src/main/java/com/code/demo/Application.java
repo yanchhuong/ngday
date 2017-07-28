@@ -52,10 +52,5 @@ public class Application {
             storageService.init();
 		};
 	}
-     @Bean
-	 @ConfigurationProperties("spring.datasource")
-	 public DataSource dataSource() {
-	     return (DataSource) DataSourceBuilder.create().build();
-	 }
 
 }
