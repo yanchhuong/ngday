@@ -4,16 +4,54 @@ var edithtml='';
 
 $(document).ready(function(){
 	user_control_001.ListData();
-
+	
+	//enable detail 
+	$("span#detail_up").click(function(){
+		$(this).hide();
+		$(this).removeClass("on");
+		
+		$("#input_upper").fadeIn();
+		$("span#detail_down").show();
+		$("span#detail_down").addClass("on");
+		$("div.tbl_srch").slideUp();
+	});
+	$("span#detail_down").click(function(){
+		$(this).hide();
+		$(this).removeClass("on");
+		
+		$("#input_upper").fadeOut();
+		$("span#detail_up").show();
+		$("span#detail_up").addClass("on");
+		$("div.tbl_srch").slideDown();
+		top.ifrMainResize("N",70);
+		
+	});
+    
+	//show status change
 	$(document).on("click","#cbStatus",function(e){
 		$(this).find(".ly_txtcombo").fadeToggle();
 	}).mouseleave(function(){
 		$(this).find(".ly_txtcombo").fadeOut();
 	});
-	$("#txtstatus ul#cbStat li").click(function(){	
+	//update status after change
+	$(document).on("click","#txtstatus ul#cbStat li",function(e){
 		comboSettingStatus(this,"개");
 		user_control_001.updateUseStatus(this);
 	});
+	
+	//show status change search
+	$(document).on("click","#spStatSRC",function(e){
+		$(this).find("#divstatSRC").fadeToggle();
+	}).mouseleave(function(){
+		$(this).find("#divstatSRC").fadeOut();
+	});
+	$(document).on("click","#divstatSRC ul#ustatSRC li",function(e){
+		$(this).parents('ul').find('li').removeClass('on');
+		$(this).addClass("on");
+		title = $.trim($(this).find("a").text());
+		$(this).parents('#spStatSRC').find('.txt').html(title);
+	});
+	
 	
 	$(document).on("click", ".btn_search_tb",function(e){
 		user_control_001.ListData();
@@ -111,9 +149,12 @@ user_control_001.ListData=function(data){
 			$.map(dat.OUT_REC,function(val){
 				if(val["enabled"]!='t'){
 					val["enabled"] = "block";	
+					
 				}else{
+					$("#cbStat li").addClass("on");
 					val["enabled"] = "Unblock";	
 				} 
+
 				total +=1;
 				
 				return val;
@@ -154,15 +195,11 @@ function comboSetting(_this,unit) {
 		 PAGE_SIZE = title.replace(unit,"");
 	}  
 }
-
 function comboSettingStatus(_this) {
 	$(_this).parents('ul').find('li').removeClass('on');
 	$(_this).addClass("on");
 	title = $.trim($(_this).find("a").text());
 	$(_this).parents('#cbStatus').find('.txt').html(title);
-	console.log($(_this).parents('#cbStatus').find('.txt').text());
-	
-	
 }
 	
 	
